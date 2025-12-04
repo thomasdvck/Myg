@@ -95,6 +95,8 @@ MBoardTest >> testCustomBoardCreation [
     self assert: customBoard width equals: w.
     self assert: customBoard height equals: h.
     self assert: customBoard mineCount equals: m.
+]
+
 { #category : 'tests-accessing' }
 MBoardTest >> testCounterIncrement [
 
