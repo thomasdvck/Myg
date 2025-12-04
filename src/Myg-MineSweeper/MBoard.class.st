@@ -11,7 +11,8 @@ Class {
 	#instVars : [
 		'gameEnded',
 		'announcer',
-		'magnifier'
+		'magnifier',
+		'count'
 	],
 	#category : 'Myg-MineSweeper-Model',
 	#package : 'Myg-MineSweeper',
@@ -143,6 +144,10 @@ MBoard >> clickOnBox: aBox [
 
 	| x y |
 	gameEnded ifTrue: [ ^ self ].
+	
+	count := count +1.
+	announcer announce: MCountChangedAnnoucement new.
+	
 	x := aBox position x.
 	y := aBox position y.
 	(self boxAt: x at: y) click
@@ -191,6 +196,7 @@ MBoard >> initialize [
 	super initialize.
 	announcer := Announcer new.
 	gameEnded := false.
+	count := 0.
 ]
 
 { #category : 'accessing' }

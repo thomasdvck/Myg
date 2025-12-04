@@ -95,6 +95,17 @@ MBoardTest >> testCustomBoardCreation [
     self assert: customBoard width equals: w.
     self assert: customBoard height equals: h.
     self assert: customBoard mineCount equals: m.
+{ #category : 'tests-accessing' }
+MBoardTest >> testCounterIncrement [
+
+	| box |
+	
+	self assert: field count equals: 0.
+
+	box := field boxAt: 1 at: 1.
+	field clickOnBox: box.
+
+	self assert: field count equals: 1
 ]
 
 { #category : 'tests' }

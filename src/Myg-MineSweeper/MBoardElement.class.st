@@ -27,7 +27,9 @@ Class {
 	#name : 'MBoardElement',
 	#superclass : 'BlElement',
 	#instVars : [
-		'game'
+		'game',
+		'elementGrid',
+		'elementScore'
 	],
 	#category : 'Myg-MineSweeper-UI',
 	#package : 'Myg-MineSweeper',
@@ -151,12 +153,30 @@ MBoardElement >> game [
 MBoardElement >> game: aMBoard [
 
 	game := aMBoard.
-	self padding: (BlInsets all: 5 * game magnifier).
-	self layout columnCount: game width.
+
+	elementScore := BlTextElement new. "conteneur de score"
+	elementScore text: ('Selection: 0' asRopedText fontSize: 20).
+	elementScore constraintsDo: [ :c |
+			c horizontal fitContent.
+			c margin: (BlInsets bottom: 10) ].
+
+	self addChild: elementScore.
+
+	elementGrid := BlElement new. "conteneur de grille"
+	elementGrid layout: (BlGridLayout horizontal cellSpacing: 5).
+	elementGrid layout columnCount: game width.
+	elementGrid constraintsDo: [ :c |
+			c horizontal fitContent.
+			c vertical fitContent ].
+
 	game grid do: [ :aBox |
-		| boxElement |
-		boxElement := MBoxElement createWithBox: aBox.
-		self addChild: boxElement ]
+			| boxElement |
+			boxElement := MBoxElement createWithBox: aBox.
+			elementGrid addChild: boxElement ].
+
+	self addChild: elementGrid.
+
+	self initializeAnnouncements 
 ]
 
 { #category : 'initialization' }
@@ -164,8 +184,27 @@ MBoardElement >> initialize [
 
 	super initialize.
 	self background: (BlBackground paint: Color veryVeryLightGray).
-	self layout: (BlGridLayout horizontal cellSpacing: 5).
+	self layout: BlLinearLayout vertical . "je le change pour empiler le jeu et le score"
 	self constraintsDo: [ :aLayoutConstraints |
-		aLayoutConstraints horizontal fitContent.
-		aLayoutConstraints vertical fitContent ]
+			aLayoutConstraints horizontal fitContent.
+			aLayoutConstraints vertical fitContent ]
+]
+
+{ #category : 'accessing' }
+MBoardElement >> initializeAnnouncements [ 
+
+	game announcer
+		when: MCountChangedAnnoucement
+		send: #updateScoreDisplay
+		to: self
+]
+
+{ #category : 'accessing' }
+MBoardElement >> updateScoreDisplay [
+
+	| text |
+	
+	text := 'Selection: ', game count asString.
+	
+	elementScore text: (text asRopedText fontSize: 20)
 ]
