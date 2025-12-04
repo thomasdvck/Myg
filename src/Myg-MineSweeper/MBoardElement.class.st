@@ -116,6 +116,13 @@ MBoardElement class >> open [
 ]
 
 { #category : 'instance creation' }
+MBoardElement class >> openWidth: w height: h mines: m magnifier: aMagnifier [
+    | customBoard |
+    customBoard := MBoard width: w height: h mineCount: m.
+    ^ self openWithModel: customBoard withMagnifier: aMagnifier
+]
+
+{ #category : 'instance creation' }
 MBoardElement class >> openWithModel: aModel [
 
 	^ self openWithModel: aModel withMagnifier: 1
