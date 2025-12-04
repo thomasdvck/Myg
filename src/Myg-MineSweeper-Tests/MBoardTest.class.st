@@ -2,12 +2,13 @@
 A MFieldTest is a test class for testing the behavior of MField
 "
 Class {
-	#name : #MBoardTest,
-	#superclass : #MAbstractTest,
-	#category : #'Myg-MineSweeper-Tests'
+	#name : 'MBoardTest',
+	#superclass : 'MAbstractTest',
+	#category : 'Myg-MineSweeper-Tests',
+	#package : 'Myg-MineSweeper-Tests'
 }
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 MBoardTest >> testBoxAtAt [
 
 	self
@@ -38,7 +39,7 @@ MBoardTest >> testBoxAtAt [
 		assert: (field boxAt: 5 at: 5) isSafeBox
 ]
 
-{ #category : #'tests-enumerating' }
+{ #category : 'tests-enumerating' }
 MBoardTest >> testBoxesAroundBoxAtAtDoWithIndexes [
 
 	| expected |
@@ -74,7 +75,7 @@ MBoardTest >> testBoxesAroundBoxAtAtDoWithIndexes [
 		expected := expected allButFirst ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MBoardTest >> testClickOnFlaggedBox [
 
 	| box |
@@ -86,7 +87,20 @@ MBoardTest >> testClickOnFlaggedBox [
 	self assert: box class equals: MSafeBox 
 ]
 
-{ #category : #tests }
+{ #category : 'tests-accessing' }
+MBoardTest >> testCounterIncrement [
+
+	| box |
+	
+	self assert: field count equals: 0.
+
+	box := field boxAt: 1 at: 1.
+	field clickOnBox: box.
+
+	self assert: field count equals: 1
+]
+
+{ #category : 'tests' }
 MBoardTest >> testFlagIsWorking [
 
 	|box|
@@ -96,7 +110,7 @@ MBoardTest >> testFlagIsWorking [
 	self assert: box isFlagged
 ]
 
-{ #category : #'tests-box api' }
+{ #category : 'tests-box api' }
 MBoardTest >> testGameEndsWhenClickingOnAllSafe [
 
 	self deny: field gameEnded.
@@ -113,7 +127,7 @@ MBoardTest >> testGameEndsWhenClickingOnAllSafe [
 	self assert: field gameEnded.
 ]
 
-{ #category : #'tests-box api' }
+{ #category : 'tests-box api' }
 MBoardTest >> testGameEndsWhenClickingOnBomb [
 
 	self deny: field gameEnded.
@@ -121,7 +135,7 @@ MBoardTest >> testGameEndsWhenClickingOnBomb [
 	self assert: field gameEnded.
 ]
 
-{ #category : #'tests-testing' }
+{ #category : 'tests-testing' }
 MBoardTest >> testHasClickedBoxAroundBoxAtAt [
 
 	| box boxToClick|
@@ -132,7 +146,7 @@ MBoardTest >> testHasClickedBoxAroundBoxAtAt [
 	self assert: (field hasClickedBoxAroundBox: box)
 ]
 
-{ #category : #'tests-testing' }
+{ #category : 'tests-testing' }
 MBoardTest >> testHasUnknownBox [
 
 	self deny: field hasBeenCleared.
@@ -149,12 +163,12 @@ MBoardTest >> testHasUnknownBox [
 	self assert: field hasBeenCleared
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 MBoardTest >> testHeight [
 	self assert: field height equals: 5
 ]
 
-{ #category : #'tests-box api' }
+{ #category : 'tests-box api' }
 MBoardTest >> testMineCountAroundBoxAtAt [
 
 	self
@@ -210,7 +224,7 @@ MBoardTest >> testMineCountAroundBoxAtAt [
 		equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MBoardTest >> testPropagateWhenEnoughFlagsAround [
 
 	| box |
@@ -229,7 +243,7 @@ MBoardTest >> testPropagateWhenEnoughFlagsAround [
 	self assert: (field boxAt: 1 at: 5) isMineBox
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 MBoardTest >> testWidth [
 	self assert: field width equals: 5
 ]

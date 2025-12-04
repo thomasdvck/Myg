@@ -24,35 +24,39 @@ Internal Representation and Key Implementation Points.
     Implementation Points
 "
 Class {
-	#name : #MBoardElement,
-	#superclass : #BlElement,
+	#name : 'MBoardElement',
+	#superclass : 'BlElement',
 	#instVars : [
-		'game'
+		'game',
+		'elementGrid',
+		'elementScore'
 	],
-	#category : #'Myg-MineSweeper-UI'
+	#category : 'Myg-MineSweeper-UI',
+	#package : 'Myg-MineSweeper',
+	#tag : 'UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MBoardElement class >> launchLarge [
 	^ self withMatrixTest5x5WithMagnifier: 2
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MBoardElement class >> launchRegular [
 	^ self withMatrixTest5x5 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MBoardElement class >> launchSmall [
 	^ self withMatrixTest5x5WithMagnifier: 0.5
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MBoardElement class >> launchVeryLarge [
 	^ self withMatrixTest5x5WithMagnifier: 4
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MBoardElement class >> open [
 	<script>
 
@@ -113,13 +117,13 @@ MBoardElement class >> open [
 	space show
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MBoardElement class >> openWithModel: aModel [
 
 	^ self openWithModel: aModel withMagnifier: 1
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MBoardElement class >> openWithModel: aModel withMagnifier: aNumber [
 
 	| aGameElement space |
@@ -141,54 +145,91 @@ MBoardElement class >> openWithModel: aModel withMagnifier: aNumber [
 	^ space
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 MBoardElement class >> withMatrixForField [
 
 	^ self openWithModel: MBoard matrixForField
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 MBoardElement class >> withMatrixForFieldWithMagnifier: aNumber [
 
 	^ self openWithModel: MBoard matrixForField withMagnifier: aNumber 
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 MBoardElement class >> withMatrixTest5x5 [
 
 	^ self openWithModel: MBoard matrixTest5x5
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 MBoardElement class >> withMatrixTest5x5WithMagnifier: aNumber [
 
 	^ self openWithModel: MBoard matrixTest5x5 withMagnifier: aNumber 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MBoardElement >> game [ 
 	^ game
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MBoardElement >> game: aMBoard [
 
 	game := aMBoard.
-	self padding: (BlInsets all: 5 * game magnifier).
-	self layout columnCount: game width.
+
+	elementScore := BlTextElement new. "conteneur de score"
+	elementScore text: ('Selection: 0' asRopedText fontSize: 20).
+	elementScore constraintsDo: [ :c |
+			c horizontal fitContent.
+			c margin: (BlInsets bottom: 10) ].
+
+	self addChild: elementScore.
+
+	elementGrid := BlElement new. "conteneur de grille"
+	elementGrid layout: (BlGridLayout horizontal cellSpacing: 5).
+	elementGrid layout columnCount: game width.
+	elementGrid constraintsDo: [ :c |
+			c horizontal fitContent.
+			c vertical fitContent ].
+
 	game grid do: [ :aBox |
-		| boxElement |
-		boxElement := MBoxElement createWithBox: aBox.
-		self addChild: boxElement ]
+			| boxElement |
+			boxElement := MBoxElement createWithBox: aBox.
+			elementGrid addChild: boxElement ].
+
+	self addChild: elementGrid.
+
+	self initializeAnnouncements 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MBoardElement >> initialize [
 
 	super initialize.
 	self background: (BlBackground paint: Color veryVeryLightGray).
-	self layout: (BlGridLayout horizontal cellSpacing: 5).
+	self layout: BlLinearLayout vertical . "je le change pour empiler le jeu et le score"
 	self constraintsDo: [ :aLayoutConstraints |
-		aLayoutConstraints horizontal fitContent.
-		aLayoutConstraints vertical fitContent ]
+			aLayoutConstraints horizontal fitContent.
+			aLayoutConstraints vertical fitContent ]
+]
+
+{ #category : 'accessing' }
+MBoardElement >> initializeAnnouncements [ 
+
+	game announcer
+		when: MCountChangedAnnoucement
+		send: #updateScoreDisplay
+		to: self
+]
+
+{ #category : 'accessing' }
+MBoardElement >> updateScoreDisplay [
+
+	| text |
+	
+	text := 'Selection: ', game count asString.
+	
+	elementScore text: (text asRopedText fontSize: 20)
 ]

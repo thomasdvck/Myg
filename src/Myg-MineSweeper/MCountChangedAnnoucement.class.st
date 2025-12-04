@@ -1,5 +1,5 @@
 Class {
-	#name : 'MBoxClickedAnnouncement',
+	#name : 'MCountChangedAnnoucement',
 	#superclass : 'Announcement',
 	#category : 'Myg-MineSweeper-Announcements',
 	#package : 'Myg-MineSweeper',

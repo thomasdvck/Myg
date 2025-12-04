@@ -2,15 +2,22 @@
 This class contains tests
 "
 Class {
-	#name : #MBoardElementTest,
-	#superclass : #TestCase,
+	#name : 'MBoardElementTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'board'
 	],
-	#category : #'Myg-MineSweeper-Tests'
+	#category : 'Myg-MineSweeper-Tests',
+	#package : 'Myg-MineSweeper-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
+MBoardElementTest >> gridElement [
+
+	^ board children second
+]
+
+{ #category : 'running' }
 MBoardElementTest >> setUp [
 
 	super setUp.
@@ -19,45 +26,45 @@ MBoardElementTest >> setUp [
 			          magnifier: 1)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MBoardElementTest >> testAllHiddenAtBeginning [
 
-	board childrenDo: [ :each |
+	self gridElement childrenDo: [ :each |
 		self assert: each background paint color equals: Color lightGray ]
 ]
 
-{ #category : #'tests - ui' }
+{ #category : 'tests - ui' }
 MBoardElementTest >> testClickOnMine [
 
 	<skip>
 	| box |
 	self skip.
-	box := board children third.
+	box := self gridElement children third.
 	box mine.
 	self
 		assert: box background image
 		equals: (MBoxElement mine scaledToSize: box size)
 ]
 
-{ #category : #'tests - ui' }
+{ #category : 'tests - ui' }
 MBoardElementTest >> testClickOnUnknown [
 
 	| box |
-	box := board children first.
+	box := self gridElement children first.
 	box box click.
 	self
 		assert: box background paint color
 		equals: Color white darker darker.
-	self assert: box children first text asString equals: '0' 
+	self assert: box children first text asString equals: '0'
 ]
 
-{ #category : #'tests - ui' }
+{ #category : 'tests - ui' }
 MBoardElementTest >> testMouseClickOnMine [
 
 	<skip>
-	| box unk|
+	| box unk |
 	self skip.
-	box := board children third.
+	box := self gridElement children third.
 	box forceLayout.
 	unk := box findMouseEventTargetAt: 200 @ 50.
 	unk mine.
@@ -66,11 +73,11 @@ MBoardElementTest >> testMouseClickOnMine [
 		equals: (MBoxElement mine scaledToSize: box size)
 ]
 
-{ #category : #'tests - ui' }
+{ #category : 'tests - ui' }
 MBoardElementTest >> testMouseClickOnUnknown [
 
 	| box unk |
-	box := board children first.
+	box := self gridElement children first.
 	box forceLayout.
 	unk := box findMouseEventTargetAt: 50 @ 50.
 	unk box click.
@@ -80,13 +87,13 @@ MBoardElementTest >> testMouseClickOnUnknown [
 	self assert: box children first text asString equals: '0'
 ]
 
-{ #category : #'tests - ui' }
+{ #category : 'tests - ui' }
 MBoardElementTest >> testMouseRightClick [
 
 	<skip>
 	| box unk |
 	self skip.
-	box := board children first.
+	box := self gridElement children first.
 	box forceLayout.
 	unk := box findMouseEventTargetAt: 200 @ 50.
 	unk flag.
@@ -96,13 +103,13 @@ MBoardElementTest >> testMouseRightClick [
 		equals: (MBoxElement flag scaledToSize: box size)
 ]
 
-{ #category : #'tests - ui' }
+{ #category : 'tests - ui' }
 MBoardElementTest >> testRightClick [
-	
+
 	<skip>
 	| box |
 	self skip.
-	box := board children first.
+	box := self gridElement children first.
 	box flag.
 	self assert: (box childNamed: 'png' ifFound: [ true ]).
 	self
