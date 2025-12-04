@@ -86,33 +86,48 @@ Have fun !'.
 
 { #category : 'as yet unclassified' }
 MineSweeper class >> menuPlay [
+    | menu |
+    menu := ToMenu new.
+    menu labelText: 'Play'.
+    menu iconImage: (Smalltalk ui icons iconNamed: #solidMenu).
 
-	| menu |
-	menu := ToMenu new.
-	menu labelText: 'Play'.
-	menu iconImage: (Smalltalk ui icons iconNamed: #solidMenu).
-	menu addItem:
-		(ToMenuItem new
-			labelText: 'Small';
-			clickAction: [ MBoardElement launchSmall ];
-			yourself).
-	menu addItem:
-		(ToMenuItem new
-			labelText: 'Regular';
-			clickAction: [ MBoardElement launchRegular ];
-			yourself).
-	menu addItem:
-		(ToMenuItem new
-			labelText: 'Large';
-			clickAction: [ MBoardElement launchLarge ];
-			yourself).
-	menu addItem:
-		(ToMenuItem new
-			labelText: 'Very Large';
-			clickAction: [ MBoardElement launchVeryLarge ];
-			yourself).
+    "--- Preset 1 : Small (5x5) ---"
+    menu addItem: (ToMenuItem new
+        labelText: 'Small (5x5)';
+        clickAction: [ 
+            MBoardElement 
+                openWidth: 5 
+                height: 5 
+                mines: 5      
+                magnifier: 2  "Gros zoom (x2)"
+        ];
+        yourself).
 
-	^ menu
+    "--- Preset 2 : Medium (10x10) ---"
+    menu addItem: (ToMenuItem new
+        labelText: 'Medium (10x10)';
+        clickAction: [ 
+            MBoardElement 
+                openWidth: 10 
+                height: 10 
+                mines: 20     
+                magnifier: 1  "Zoom normal (x1)"
+        ];
+        yourself).
+
+    "--- Preset 3 : Large (20x20) ---"
+    menu addItem: (ToMenuItem new
+        labelText: 'Large (20x20)';
+        clickAction: [ 
+            MBoardElement 
+                openWidth: 20 
+                height: 20 
+                mines: 60      
+                magnifier: 0.5  "Dézoomé (x0.5) pour afficher la grande grille"
+        ];
+        yourself).
+
+    ^ menu
 ]
 
 { #category : 'instance creation' }
