@@ -26,32 +26,6 @@ MBoard class >> createWithMatrix: aMatrix [
 		  yourself
 ]
 
-{ #category : 'test ressources' }
-MBoard class >> matrixForField [
-
-	^ self createWithMatrix: ((CTNewArray2D
-			    width: 5
-			    height: 5
-			    tabulate: [ :column :row | MBox safe ])
-			   at: 1 @ 3 put: MBox mine;
-			at: 1 @ 5 put: MBox mine;
-			   at: 2 @ 3 put: MBox mine;
-			   at: 3 @ 1 put: MBox mine;
-			   at: 3 @ 2 put: MBox mine;
-			   at: 3 @ 3 put: MBox mine;
-			   at: 4 @ 4 put: MBox mine;
-			   at: 5 @ 4 put: MBox mine;
-			   yourself)
-]
-
-{ #category : 'instance creation' }
-MBoard class >> matrixTest5x5 [
-
-	^ self createWithMatrix:
-		  (CTNewArray2D width: 5 height: 5 tabulate: [ :column :row |
-			   MBox randomCase ])
-]
-
 { #category : 'as yet unclassified' }
 MBoard class >> width: aWidth height: aHeight mineCount: aMineCount [
 

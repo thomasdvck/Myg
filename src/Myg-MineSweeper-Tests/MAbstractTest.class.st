@@ -29,7 +29,7 @@ MAbstractTest >> matrixForField [
 			   yourself
 ]
 
-{ #category : 'running' }
+{ #category : 'test ressources' }
 MAbstractTest >> setUp [
 
 	field := MBoard createWithMatrix: self matrixForField
