@@ -199,7 +199,9 @@ MBoardElement >> game: aMBoard [
 			boxElement := MBoxElement createWithBox: aBox.
 			elementGrid addChild: boxElement ].
 
-	self addChild: elementGrid
+	self addChild: elementGrid.
+
+	self initializeAnnouncements 
 ]
 
 { #category : 'initialization' }
@@ -211,4 +213,23 @@ MBoardElement >> initialize [
 	self constraintsDo: [ :aLayoutConstraints |
 			aLayoutConstraints horizontal fitContent.
 			aLayoutConstraints vertical fitContent ]
+]
+
+{ #category : 'accessing' }
+MBoardElement >> initializeAnnouncements [ 
+
+	game announcer
+		when: MCountChangedAnnoucement
+		send: #updateScoreDisplay
+		to: self
+]
+
+{ #category : 'accessing' }
+MBoardElement >> updateScoreDisplay [
+
+	| text |
+	
+	text := 'Selection: ', game count asString.
+	
+	elementScore text: (text asRopedText fontSize: 20)
 ]
