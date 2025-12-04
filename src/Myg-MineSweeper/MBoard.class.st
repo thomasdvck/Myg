@@ -153,6 +153,11 @@ MBoard >> clickOnBox: aBox [
 	(self boxAt: x at: y) click
 ]
 
+{ #category : 'accessing' }
+MBoard >> count [
+	^ count
+]
+
 { #category : 'box api' }
 MBoard >> flagCountAroundBox: aBox [
 

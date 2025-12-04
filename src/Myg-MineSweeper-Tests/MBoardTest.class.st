@@ -87,16 +87,6 @@ MBoardTest >> testClickOnFlaggedBox [
 	self assert: box class equals: MSafeBox 
 ]
 
-{ #category : 'tests' }
-MBoardTest >> testCustomBoardCreation [
-    | customBoard w h m |
-    w := 10. h := 10. m := 20.
-    customBoard := MBoard width: w height: h mineCount: m.
-    self assert: customBoard width equals: w.
-    self assert: customBoard height equals: h.
-    self assert: customBoard mineCount equals: m.
-]
-
 { #category : 'tests-accessing' }
 MBoardTest >> testCounterIncrement [
 
@@ -108,6 +98,16 @@ MBoardTest >> testCounterIncrement [
 	field clickOnBox: box.
 
 	self assert: field count equals: 1
+]
+
+{ #category : 'tests' }
+MBoardTest >> testCustomBoardCreation [
+    | customBoard w h m |
+    w := 10. h := 10. m := 20.
+    customBoard := MBoard width: w height: h mineCount: m.
+    self assert: customBoard width equals: w.
+    self assert: customBoard height equals: h.
+    self assert: customBoard mineCount equals: m.
 ]
 
 { #category : 'tests' }
