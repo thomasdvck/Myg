@@ -9,7 +9,7 @@ Class {
 	],
 	#category : 'Myg-MineSweeper-Tests',
 	#package : 'Myg-MineSweeper-Tests'
-}
+}Ò
 
 { #category : 'utils' }
 MBoardElementTest >> generateFixedMatrix [
@@ -27,6 +27,7 @@ MBoardElementTest >> generateFixedMatrix [
 		  at: 4 @ 4 put: MBox mine;
 		  at: 5 @ 4 put: MBox mine;
 		  yourself
+]
 { #category : 'running' }
 MBoardElementTest >> gridElement [
 
