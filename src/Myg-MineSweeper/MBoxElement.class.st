@@ -198,7 +198,7 @@ MBoxElement >> initializeEvents [
 
 	self addEventHandlerOn: BlClickEvent do: [ :anEvent |
 		anEvent
-			ifPrimary: [ self box isFlagged ifFalse: [self box click ] ]
+			ifPrimary: [ self box isFlagged ifFalse: [self box board clickOnBox: self box ] ]
 			secondary: [ self flag ]
 			middle: [ ^ self ]
 			other: [ ^ self ] ]
