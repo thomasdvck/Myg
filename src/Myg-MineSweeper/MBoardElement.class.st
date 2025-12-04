@@ -37,26 +37,6 @@ Class {
 }
 
 { #category : 'instance creation' }
-MBoardElement class >> launchLarge [
-	^ self withMatrixTest5x5WithMagnifier: 2
-]
-
-{ #category : 'instance creation' }
-MBoardElement class >> launchRegular [
-	^ self withMatrixTest5x5 
-]
-
-{ #category : 'instance creation' }
-MBoardElement class >> launchSmall [
-	^ self withMatrixTest5x5WithMagnifier: 0.5
-]
-
-{ #category : 'instance creation' }
-MBoardElement class >> launchVeryLarge [
-	^ self withMatrixTest5x5WithMagnifier: 4
-]
-
-{ #category : 'instance creation' }
 MBoardElement class >> open [
 	<script>
 
@@ -118,6 +98,13 @@ MBoardElement class >> open [
 ]
 
 { #category : 'instance creation' }
+MBoardElement class >> openWidth: w height: h mines: m magnifier: aMagnifier [
+    | customBoard |
+    customBoard := MBoard width: w height: h mineCount: m.
+    ^ self openWithModel: customBoard withMagnifier: aMagnifier
+]
+
+{ #category : 'instance creation' }
 MBoardElement class >> openWithModel: aModel [
 
 	^ self openWithModel: aModel withMagnifier: 1
@@ -155,18 +142,6 @@ MBoardElement class >> withMatrixForField [
 MBoardElement class >> withMatrixForFieldWithMagnifier: aNumber [
 
 	^ self openWithModel: MBoard matrixForField withMagnifier: aNumber 
-]
-
-{ #category : 'execution' }
-MBoardElement class >> withMatrixTest5x5 [
-
-	^ self openWithModel: MBoard matrixTest5x5
-]
-
-{ #category : 'execution' }
-MBoardElement class >> withMatrixTest5x5WithMagnifier: aNumber [
-
-	^ self openWithModel: MBoard matrixTest5x5 withMagnifier: aNumber 
 ]
 
 { #category : 'accessing' }

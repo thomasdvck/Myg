@@ -11,6 +11,22 @@ Class {
 	#package : 'Myg-MineSweeper-Tests'
 }
 
+{ #category : 'utils' }
+MBoardElementTest >> generateFixedMatrix [
+
+	^ (CTNewArray2D
+		   width: 5
+		   height: 5
+		   tabulate: [ :column :row | MBox safe ])
+		  at: 1 @ 3 put: MBox mine;
+		  at: 1 @ 5 put: MBox mine;
+		  at: 2 @ 3 put: MBox mine;
+		  at: 3 @ 1 put: MBox mine;
+		  at: 3 @ 2 put: MBox mine;
+		  at: 3 @ 3 put: MBox mine;
+		  at: 4 @ 4 put: MBox mine;
+		  at: 5 @ 4 put: MBox mine;
+		  yourself
 { #category : 'running' }
 MBoardElementTest >> gridElement [
 
@@ -19,11 +35,14 @@ MBoardElementTest >> gridElement [
 
 { #category : 'running' }
 MBoardElementTest >> setUp [
+    | aGame |
+    super setUp.
 
-	super setUp.
-	board := MBoardElement new game: (MBoard
-			          matrixForField
-			          magnifier: 1)
+    aGame := MBoard createWithMatrix: self generateFixedMatrix.
+    
+    aGame magnifier: 1.
+    
+    board := MBoardElement new game: aGame.
 ]
 
 { #category : 'tests' }

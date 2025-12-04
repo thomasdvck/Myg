@@ -27,30 +27,29 @@ MBoard class >> createWithMatrix: aMatrix [
 		  yourself
 ]
 
-{ #category : 'test ressources' }
-MBoard class >> matrixForField [
+{ #category : 'as yet unclassified' }
+MBoard class >> width: aWidth height: aHeight mineCount: aMineCount [
 
-	^ self createWithMatrix: ((CTNewArray2D
-			    width: 5
-			    height: 5
-			    tabulate: [ :column :row | MBox safe ])
-			   at: 1 @ 3 put: MBox mine;
-			at: 1 @ 5 put: MBox mine;
-			   at: 2 @ 3 put: MBox mine;
-			   at: 3 @ 1 put: MBox mine;
-			   at: 3 @ 2 put: MBox mine;
-			   at: 3 @ 3 put: MBox mine;
-			   at: 4 @ 4 put: MBox mine;
-			   at: 5 @ 4 put: MBox mine;
-			   yourself)
-]
+	| matrix allCoordinates mineCoordinates |
+	aMineCount >= (aWidth * aHeight) ifTrue: [
+		self error: 'Too many mines for this board size' ].
 
-{ #category : 'instance creation' }
-MBoard class >> matrixTest5x5 [
+	allCoordinates := (1 to: aWidth) flatCollect: [ :x |
+		                  (1 to: aHeight) collect: [ :y | x @ y ] ].
 
-	^ self createWithMatrix:
-		  (CTNewArray2D width: 5 height: 5 tabulate: [ :column :row |
-			   MBox randomCase ])
+
+	mineCoordinates := (allCoordinates shuffled first: aMineCount) asSet.
+
+
+	matrix := CTNewArray2D
+		          width: aWidth
+		          height: aHeight
+		          tabulate: [ :column :row |
+				          (mineCoordinates includes: column @ row)
+					          ifTrue: [ MBox mine ]
+					          ifFalse: [ MBox safe ] ].
+
+	^ self createWithMatrix: matrix
 ]
 
 { #category : 'accessing' }
@@ -152,11 +151,6 @@ MBoard >> clickOnBox: aBox [
 	x := aBox position x.
 	y := aBox position y.
 	(self boxAt: x at: y) click
-]
-
-{ #category : 'initialization' }
-MBoard >> count [
-	^ count
 ]
 
 { #category : 'box api' }
