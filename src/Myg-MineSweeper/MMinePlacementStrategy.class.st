@@ -6,7 +6,7 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
-MMinePlacementStrategy >> generateMinesForGridWidth: gridWith height: gridHeight numberMines: mineCount [
+MMinePlacementStrategy >> generateMinesForGridWidth: gridWidth height: gridHeight numberMines: mineCount [
 
 	^ self subclassResponsibility 
 ]
