@@ -18,6 +18,19 @@ MMinePlacementStrategyTest >> testLowerHalfStrategyNoMineAtTop [
 ]
 
 { #category : 'tests' }
+MMinePlacementStrategyTest >> testOddColumnStrategyNoMineAtEvenColumn [
+
+	| s m |
+	
+	s := MColumnsOddMinePlacement new.
+	
+	m := s generateMinesForGridWidth: 10 height: 10  numberMines: 50.
+	
+	m do:[:position | self assert: position x odd. ]
+	
+]
+
+{ #category : 'tests' }
 MMinePlacementStrategyTest >> testRandomStrategy [
 
 	| s m |

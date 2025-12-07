@@ -35,6 +35,7 @@ MBoard class >> width: aWidth height: aHeight mineCount: aMineCount [
 
 	strategies add: MRandomMinePlacement new.
 	strategies add: MLowerHalfMinePlacement new.
+	strategies add: MColumnsOddMinePlacement new.
 	"Je rajoute ici toutes les strategy futur"
 
 	strategyRandom := strategies atRandom.
