@@ -30,16 +30,31 @@ MBoard class >> createWithMatrix: aMatrix [
 { #category : 'as yet unclassified' }
 MBoard class >> width: aWidth height: aHeight mineCount: aMineCount [
 
-	| matrix allCoordinates mineCoordinates |
+	| strategies strategyRandom|
+
+	strategies := OrderedCollection new.
+	
+	strategies add: MRandomMinePlacement new.
+	"Je rajoute ici toutes les strategy futur"
+	
+	strategyRandom := strategies atRandom.
+	
+
+
+	^ self width: aWidth height: aHeight mineCount: aMineCount strategy: strategyRandom 
+]
+
+{ #category : 'as yet unclassified' }
+MBoard class >> width: aWidth height: aHeight mineCount: aMineCount strategy: aStrategy [
+
+	| matrix mineCoordinates |
 	aMineCount >= (aWidth * aHeight) ifTrue: [
 		self error: 'Too many mines for this board size' ].
 
-	allCoordinates := (1 to: aWidth) flatCollect: [ :x |
-		                  (1 to: aHeight) collect: [ :y | x @ y ] ].
-
-
-	mineCoordinates := (allCoordinates shuffled first: aMineCount) asSet.
-
+	mineCoordinates := aStrategy
+		                   generateMinesForGridWidth: aWidth
+		                   height: aHeight
+		                   numberMines: aMineCount.
 
 	matrix := CTNewArray2D
 		          width: aWidth
