@@ -30,18 +30,22 @@ MBoard class >> createWithMatrix: aMatrix [
 { #category : 'as yet unclassified' }
 MBoard class >> width: aWidth height: aHeight mineCount: aMineCount [
 
-	| strategies strategyRandom|
-
+	| strategies strategyRandom |
 	strategies := OrderedCollection new.
-	
+
 	strategies add: MRandomMinePlacement new.
+	strategies add: MLowerHalfMinePlacement new.
 	"Je rajoute ici toutes les strategy futur"
-	
+
 	strategyRandom := strategies atRandom.
-	
 
 
-	^ self width: aWidth height: aHeight mineCount: aMineCount strategy: strategyRandom 
+
+	^ self
+		  width: aWidth
+		  height: aHeight
+		  mineCount: aMineCount
+		  strategy: strategyRandom
 ]
 
 { #category : 'as yet unclassified' }
