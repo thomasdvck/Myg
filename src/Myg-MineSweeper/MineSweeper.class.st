@@ -86,48 +86,51 @@ Have fun !'.
 
 { #category : 'as yet unclassified' }
 MineSweeper class >> menuPlay [
-    | menu |
-    menu := ToMenu new.
-    menu labelText: 'Play'.
-    menu iconImage: (Smalltalk ui icons iconNamed: #solidMenu).
 
-    "--- Preset 1 : Small (5x5) ---"
-    menu addItem: (ToMenuItem new
-        labelText: 'Small (5x5)';
-        clickAction: [ 
-            MBoardElement 
-                openWidth: 5 
-                height: 5 
-                mines: 5      
-                magnifier: 2  "Gros zoom (x2)"
-        ];
-        yourself).
+	| menu |
+	menu := ToMenu new.
+	menu labelText: 'Play'.
+	menu iconImage: (Smalltalk ui icons iconNamed: #solidMenu).
 
-    "--- Preset 2 : Medium (10x10) ---"
-    menu addItem: (ToMenuItem new
-        labelText: 'Medium (10x10)';
-        clickAction: [ 
-            MBoardElement 
-                openWidth: 10 
-                height: 10 
-                mines: 20     
-                magnifier: 1  "Zoom normal (x1)"
-        ];
-        yourself).
+	"--- Preset 1 : Small (5x5) ---"
+	menu addItem: (ToMenuItem new
+			 labelText: 'Small (5x5)';
+			 clickAction: [
+					 MBoardElement
+						 openWidth: 5
+						 height: 5
+						 mines: 5
+						 magnifier: 2 "Gros zoom (x2)" ];
+			 yourself).
 
-    "--- Preset 3 : Large (20x20) ---"
-    menu addItem: (ToMenuItem new
-        labelText: 'Large (20x20)';
-        clickAction: [ 
-            MBoardElement 
-                openWidth: 20 
-                height: 20 
-                mines: 60      
-                magnifier: 0.5  "Dézoomé (x0.5) pour afficher la grande grille"
-        ];
-        yourself).
+	"--- Preset 2 : Medium (10x10) ---"
+	menu addItem: (ToMenuItem new
+			 labelText: 'Medium (10x10)';
+			 clickAction: [
+					 MBoardElement
+						 openWidth: 10
+						 height: 10
+						 mines: 20
+						 magnifier: 1 "Zoom normal (x1)" ];
+			 yourself).
 
-    ^ menu
+	"--- Preset 3 : Large (20x20) ---"
+	menu addItem: (ToMenuItem new
+			 labelText: 'Large (20x20)';
+			 clickAction: [
+					 MBoardElement
+						 openWidth: 20
+						 height: 20
+						 mines: 60
+						 magnifier: 0.5 "Dézoomé (x0.5) pour afficher la grande grille" ];
+			 yourself).
+			
+	menu addItem: (ToMenuItem new
+		labelText: 'Replay last Game';
+		iconImage: (Smalltalk ui icons iconNamed: #smallRedo);
+		clickAction: [ self playSameBoard ];
+		yourself).
+	^ menu
 ]
 
 { #category : 'instance creation' }
