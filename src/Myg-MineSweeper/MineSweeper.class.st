@@ -151,6 +151,30 @@ MineSweeper class >> open [
 	space show
 ]
 
+{ #category : 'as yet unclassified' }
+MineSweeper class >> playSameBoard [
+
+	| strategy board |
+	MBoard lastMines ifNil: [
+			self inform: 'impossible de rejouer : aucune dernière partie'.
+			^ self ].
+		
+	strategy := MReplayMinePlacement new.
+	strategy minesToReplay: MBoard lastMines.
+	
+	board := MBoard 
+		width: MBoard lastWidth 
+		height: MBoard lastHeight 
+		mineCount: MBoard lastCount 
+		strategy: strategy .
+		
+	MBoardElement 
+		openWithModel: board 
+		withMagnifier: 2
+		
+	
+]
+
 { #category : 'accessing' }
 MineSweeper class >> title [ 
 	|title|
