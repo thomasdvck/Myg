@@ -15,6 +15,11 @@ MReplayMinePlacement >> generateMinesForGridWidth: gridWidth height: gridHeight 
 ]
 
 { #category : 'accessing' }
+MReplayMinePlacement >> isSave [ 
+	^ false
+]
+
+{ #category : 'accessing' }
 MReplayMinePlacement >> minesToReplay: aCollection [
 	minesToReplay := aCollection
 	

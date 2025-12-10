@@ -10,3 +10,8 @@ MMinePlacementStrategy >> generateMinesForGridWidth: gridWidth height: gridHeigh
 
 	^ self subclassResponsibility 
 ]
+
+{ #category : 'as yet unclassified' }
+MMinePlacementStrategy >> isSave [
+	^ true
+]

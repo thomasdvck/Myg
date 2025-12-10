@@ -14,6 +14,12 @@ Class {
 		'magnifier',
 		'count'
 	],
+	#classInstVars : [
+		'lastMines',
+		'lastWidth',
+		'lastHeight',
+		'lastCount'
+	],
 	#category : 'Myg-MineSweeper-Model',
 	#package : 'Myg-MineSweeper',
 	#tag : 'Model'
@@ -25,6 +31,27 @@ MBoard class >> createWithMatrix: aMatrix [
 	^ self new
 		  configureGrid: aMatrix;
 		  yourself
+]
+
+{ #category : 'as yet unclassified' }
+MBoard class >> lastCount [
+
+	^ lastCount
+]
+
+{ #category : 'as yet unclassified' }
+MBoard class >> lastHeight [
+	^ lastHeight
+]
+
+{ #category : 'as yet unclassified' }
+MBoard class >> lastMines [
+	^ lastMines
+]
+
+{ #category : 'as yet unclassified' }
+MBoard class >> lastWidth [
+	^ lastWidth
 ]
 
 { #category : 'as yet unclassified' }
@@ -60,6 +87,13 @@ MBoard class >> width: aWidth height: aHeight mineCount: aMineCount strategy: aS
 		                   generateMinesForGridWidth: aWidth
 		                   height: aHeight
 		                   numberMines: aMineCount.
+
+	aStrategy isSave ifTrue:[
+			lastWidth := aWidth.
+			lastHeight := aHeight.
+			lastCount := aMineCount.
+			lastMines := mineCoordinates 	
+		]. 
 
 	matrix := CTNewArray2D
 		          width: aWidth
