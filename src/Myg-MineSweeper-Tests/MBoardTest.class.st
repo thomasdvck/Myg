@@ -178,6 +178,19 @@ MBoardTest >> testHeight [
 	self assert: field height equals: 5
 ]
 
+{ #category : 'tests-accessing' }
+MBoardTest >> testMboardSaveGame [ 
+	|board|
+	
+	board := MBoard
+		width: 5 height: 5 mineCount: 3 strategy: MRandomMinePlacement new.
+		
+	self assert: MBoard lastWidth equals: 5.
+	self assert: MBoard lastHeight equals: 5.
+	self assert: MBoard lastCount equals: 3.
+	self assert: MBoard lastMines size equals: 3
+]
+
 { #category : 'tests-box api' }
 MBoardTest >> testMineCountAroundBoxAtAt [
 
